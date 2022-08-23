@@ -1,5 +1,5 @@
 import React from "react";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 
 const DataTable = ({
   columns,
@@ -8,6 +8,8 @@ const DataTable = ({
   rowsPerPageOptions,
   height,
   width,
+  filterModel,
+  onFilterModelChange,
 }) => {
   return (
     <div style={{ height, width }}>
@@ -16,6 +18,11 @@ const DataTable = ({
         columns={columns}
         pageSize={pageSize}
         rowsPerPageOptions={rowsPerPageOptions}
+        components={{
+          Toolbar: GridToolbar,
+        }}
+        filterModel={filterModel}
+        onFilterModelChange={(newFilterModel) => onFilterModelChange(newFilterModel)}
       />
     </div>
   );

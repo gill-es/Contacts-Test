@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import DataTable from "../../../components/Table/DataTable";
@@ -10,9 +10,15 @@ const ContactList = () => {
 
   const contacts = useSelector((state) => state.contacts);
 
+  const [filterModel, setFilterModel] = useState({ items: [] });
+
   useEffect(() => {
     dispatch(actions.contactActions.getContacts());
   }, []);
+
+  const onFilterModelChange = (newFilterModel) => {
+    setFilterModel(newFilterModel);
+  };
 
   return (
     <>
@@ -21,6 +27,8 @@ const ContactList = () => {
         rows={contacts.list}
         pageSize={contacts.pagination.itemsPerPage}
         pagination={{ page: contacts.pagination.currentPage }}
+        filterModel={filterModel}
+        onFilterModelChange={onFilterModelChange}
       />
     </>
   );
